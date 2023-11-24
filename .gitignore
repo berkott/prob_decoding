@@ -160,3 +160,4 @@ cython_debug/
 #.idea/
 
 src/raw_data/full_data
+src/raw_data/full_data.zip
