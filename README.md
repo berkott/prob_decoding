@@ -34,7 +34,7 @@ This is data pulled only from pid `dab512bd-a02d-4c1f-8dbc-9155a163efc0`. It con
 
 **For `src/raw_data/full_data`:**
 
-Make sure to unzip `full_data.zip` into `src/raw_data/full_data`.
+Make sure to unzip `full_data.zip` into `src/raw_data/full_data`. Get `full_data.zip` from [here](https://drive.google.com/file/d/1fd_yOhTZMvInIHEgxDqNFBFf6na65j7Q/view?usp=sharing).
 
 This data is pulled from all pids in `src/raw_data/full_data/all_pids.csv` Unfortunately, not all pids were able to be loaded, so only 112 pids are actually used. The 112 that are used are described in `src/raw_data/full_data/names_and_shapes.txt`.
 
