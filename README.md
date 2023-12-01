@@ -5,6 +5,8 @@ We mainly study decoding (and a bit of encoding) behavior from electrophysiologi
 If you need to run `src/save_data.ipynb`, you will need to install everything in `requirements.txt`. If you are just loading the data from the `.npy` files, all you need is numpy and whatever libraries you need for data analysis.
 
 ## Data
+I had a 164 gigabyte folder on my laptop with all the `openalyx.internationalbrainlab.org` data. I have since deleted this folder but we might want to get it back if needed. I am not exactly sure how I downloaded all of it.
+
 ### How to get the data
 `load_data_from_pids(pids, brain_region, behavior="choice", data_type="all_ks", n_t_bins=30, prior_path=None, t_before=0.5, t_after=1.5, normalize_input=True)`
 
