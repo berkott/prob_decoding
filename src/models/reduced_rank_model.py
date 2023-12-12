@@ -27,6 +27,7 @@ class ReducedRankModel(nn.Module):
         # self.bias = nn.Parameter(torch.randn(self.n_time_bins))
 
     def forward(self, recording_index, recording_X):
+        # Y_hat = torch.mean((self.Us[recording_index] @ self.V).T @ recording_X, dim=1) + self.bias
         UV = np.einsum('ctr,rt->ctt', self.Us[recording_index], self.V)
-        Y_hat = torch.einsum('ctt,kct->kt', UV, recording_X) # + self.bias
+        Y_hat = torch.einsum('ctt,kct->kt', UV, recording_X) + self.bias
         return Y_hat
