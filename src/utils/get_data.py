@@ -23,10 +23,10 @@ def get_test_train_data(X_list, Y_list, train_split, random_seed=-1):
     Y_list_shuffled = []
     Y_list_mean_subtracted_shuffled = []
 
-    if random_seed != -1:
-        np.random.seed(random_seed)
 
     for i in range(len(X_list)):
+        if random_seed != -1:
+            np.random.seed(random_seed)
         indices = np.arange(X_list[i].shape[0])
         np.random.shuffle(indices)
         X_list_shuffled.append(X_list[i][indices])
@@ -43,6 +43,17 @@ def get_test_train_data(X_list, Y_list, train_split, random_seed=-1):
     Y_test_mean_subtracted = [Y[int(train_split * Y.shape[0]):] for Y in Y_list_mean_subtracted_shuffled]
 
     return X_train, X_test, Y_train, Y_test, Y_train_mean_subtracted, Y_test_mean_subtracted
+
+def smooth_x(X, normalize=True):
+    X_smooth = []
+
+    for i in range(len(X)):
+        X_smooth.append(gaussian_filter1d(X[i], sigma=4, axis=2))
+        
+        if normalize:
+            X_smooth[i] = X_smooth[i] / np.max(X_smooth[i])
+    
+    return X_smooth
 
 def smooth_y(Y, normalize=True):
     Y_smooth = []

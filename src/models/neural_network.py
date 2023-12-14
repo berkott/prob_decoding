@@ -74,18 +74,32 @@ class NeuralNetworkModel(nn.Module):
         self.rank = rank
         
         self.Us = [nn.Parameter(torch.randn(self.n_neurons_per_recording[i], self.rank)) for i in range(self.n_recordings)]
-        self.feed_forward = nn.Sequential(
-                nn.Linear(self.rank * self.n_time_bins, self.width),
-                nn.ReLU(),
-                # Add dropout
-                # nn.Dropout(p=0.5),
-                *[nn.Linear(self.width, self.width) for _ in range(self.hidden_layers - 1)],
-                nn.Linear(self.width, self.n_time_bins)
-            )
+        self.biases = [nn.Parameter(torch.randn(self.rank, self.n_time_bins)) for i in range(self.n_recordings)]
+
+        modules = [
+            nn.Linear(self.rank * self.n_time_bins, self.width),
+            nn.ReLU()
+        ]
+        for _ in range(self.hidden_layers - 1):
+            modules.append(nn.Linear(self.width, self.width))
+            # modules.append(nn.BatchNorm1d(self.width))
+            modules.append(nn.ReLU())
+            # modules.append(nn.Dropout(p=0.5))
+        modules.append(nn.Linear(self.width, self.n_time_bins))
+        self.feed_forward = nn.Sequential(*modules)
+
+        # self.feed_forward = nn.Sequential(
+        #         nn.Linear(self.rank * self.n_time_bins, self.width),
+        #         nn.ReLU(),
+        #         # Add dropout
+        #         # nn.Dropout(p=0.5),
+        #         *[nn.Sequential(nn.Linear(self.width, self.width), nn.ReLU()) for _ in range(self.hidden_layers - 1)],
+        #         nn.Linear(self.width, self.n_time_bins)
+        #     )
 
     def forward(self, recording_index, recording_X):
         # TODO: Check which dim to do average over
-        X = self.Us[recording_index].T @ recording_X
+        X = self.Us[recording_index].T @ recording_X + self.biases[recording_index]
         # print(X.shape)
         X = torch.flatten(X, 1)
         # print(X.shape)
