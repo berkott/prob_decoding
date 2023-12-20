@@ -43,6 +43,7 @@ def continuous_decoder(train_X, train_Y, test_X, test_Y, time_independent=False,
         
     if verbose:
         print(f"r2: {r2} corr: {corr} mse: {mse}")
+        print(f'Ridge estimator coeff shape: {decoder.best_estimator_.coef_.shape}')
     
     return pred_Y, [r2, corr, mse]
 

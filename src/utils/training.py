@@ -29,23 +29,4 @@ def train_one_epoch(X_train, Y_train, X_test, Y_test, model, optimizer, loss_fn)
         train_loss_iter[recording] = train_loss_item
         test_loss_iter[recording] = test_loss_item
         
-        # if training_iteration % 100 == 0:
-        #     print(f'Iteration {training_iteration}, Recording {recording}, Train Loss {train_loss_item}, Test Loss {test_loss_item}')
-
     return train_loss_iter, test_loss_iter
-
-# def train_one_epoch(X_train, Y_train, X_test, Y_test, model, optimizer, loss_fn):
-#     train_loss_iter = [0 for _ in range(len(X_train))]
-#     test_loss_iter = [0 for _ in range(len(X_train))]
-
-#     for recording in range(len(X_train)):
-#         train_loss_item = train_step(recording, X_train[recording], Y_train[recording], model, optimizer, loss_fn)
-#         test_loss_item = evaluate_recording(recording, X_test[recording], Y_test[recording], model, loss_fn, plot_num=0)
-        
-#         train_loss_iter[recording] = train_loss_item
-#         test_loss_iter[recording] = test_loss_item
-        
-#         # if training_iteration % 100 == 0:
-#         #     print(f'Iteration {training_iteration}, Recording {recording}, Train Loss {train_loss_item}, Test Loss {test_loss_item}')
-
-#     return train_loss_iter, test_loss_iter
